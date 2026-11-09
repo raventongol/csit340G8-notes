@@ -3,7 +3,7 @@ import { useState } from 'react'
 import NoteCard from './NoteCard.jsx'
 
 function Notes() {
-  // Step 3: Render notes from state
+  // Step 3: Notes state
   const [notes, setNotes] = useState([
     {
       id: 1,
@@ -17,17 +17,42 @@ function Notes() {
     },
   ])
 
-  // Step 4: Control the form
+  // Step 4: Form state
   const [form, setForm] = useState({
     title: '',
     body: '',
   })
 
-  // Step 4: Handle changes in both inputs
+  // Step 4: Handle input changes
   function handleChange(e) {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
+    })
+  }
+
+  // Step 5: Add a note
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    const title = form.title.trim()
+    const body = form.body.trim()
+
+    if (!title || !body) {
+      return
+    }
+
+    const newNote = {
+      id: Date.now(),
+      title: title,
+      body: body,
+    }
+
+    setNotes([...notes, newNote])
+
+    setForm({
+      title: '',
+      body: '',
     })
   }
 
@@ -48,7 +73,7 @@ function Notes() {
           />
         </div>
 
-        <form className="grid gap-3">
+        <form className="grid gap-3" onSubmit={handleSubmit}>
           <p className="text-[13px] font-normal tracking-wide text-[#949494]">
             NEW NOTE
           </p>
