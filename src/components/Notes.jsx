@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import NoteCard from './NoteCard.jsx'
 
@@ -51,7 +52,6 @@ function Notes() {
     })
   }
 
-  // Step 6: Delete a note
   function handleDelete(id) {
     setNotes(notes.filter((note) => note.id !== id))
   }
@@ -124,6 +124,11 @@ function Notes() {
             </li>
           ))}
         </ul>
+
+        {/* Step 7: Empty message */}
+        {notes.length === 0 && (
+          <p className="text-lg text-[#949494]">No notes found</p>
+        )}
       </section>
     </div>
   )
