@@ -1,9 +1,7 @@
-
 import { useState } from 'react'
 import NoteCard from './NoteCard.jsx'
 
 function Notes() {
-  // Step 3: Notes state
   const [notes, setNotes] = useState([
     {
       id: 1,
@@ -17,13 +15,11 @@ function Notes() {
     },
   ])
 
-  // Step 4: Form state
   const [form, setForm] = useState({
     title: '',
     body: '',
   })
 
-  // Step 4: Handle input changes
   function handleChange(e) {
     setForm({
       ...form,
@@ -31,7 +27,6 @@ function Notes() {
     })
   }
 
-  // Step 5: Add a note
   function handleSubmit(e) {
     e.preventDefault()
 
@@ -44,8 +39,8 @@ function Notes() {
 
     const newNote = {
       id: Date.now(),
-      title: title,
-      body: body,
+      title,
+      body,
     }
 
     setNotes([...notes, newNote])
@@ -54,6 +49,11 @@ function Notes() {
       title: '',
       body: '',
     })
+  }
+
+  // Step 6: Delete a note
+  function handleDelete(id) {
+    setNotes(notes.filter((note) => note.id !== id))
   }
 
   return (
@@ -112,13 +112,11 @@ function Notes() {
               key={note.id}
               className="relative min-h-32 bg-white px-6 py-5 shadow-[0_2px_4px_0_rgba(0,0,0,0.2),0_25px_50px_0_rgba(0,0,0,0.1)]"
             >
-              <NoteCard
-                title={note.title}
-                body={note.body}
-              />
+              <NoteCard title={note.title} body={note.body} />
 
               <button
                 type="button"
+                onClick={() => handleDelete(note.id)}
                 className="absolute top-4 right-5 cursor-pointer text-[26px] leading-none text-[#949494] hover:text-[#c18585]"
               >
                 ×
