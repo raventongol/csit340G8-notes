@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import NoteCard from './NoteCard.jsx'
 
 
@@ -28,13 +28,16 @@ function Notes() {
     body: '',
   })
 
-  // Step 8: Search state
+
   const [search, setSearch] = useState('')
 
-  // Step 8: Filter notes by title
+
+ 
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(search.toLowerCase())
   )
+
+  const titleRef = useRef(null)
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
@@ -74,11 +77,11 @@ function Notes() {
 
     setNotes([...notes, newNote])
 
-    setForm({
-      title: '',
-      body: '',
-    })
+    setForm({title: '', body: '',})
+    titleRef.current.focus()
   }
+
+    
 
   function handleDelete(id) {
     setNotes(notes.filter((note) => note.id !== id))
@@ -110,6 +113,7 @@ function Notes() {
           </p>
 
           <input
+            ref={titleRef}
             name="title"
             placeholder="Title"
             value={form.title}
