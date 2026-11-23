@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import NoteCard from './NoteCard.jsx'
 
 
@@ -32,10 +32,12 @@ function Notes() {
   const [search, setSearch] = useState('')
 
 
- 
-  const filteredNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(search.toLowerCase())
-  )
+  const filteredNotes = useMemo(() => {
+    
+    return notes.filter((note) =>
+      note.title.toLowerCase().includes(search.toLowerCase())
+    )
+  }, [notes, search])
 
   const titleRef = useRef(null)
 
