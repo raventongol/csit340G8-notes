@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 function NoteCard({ title, body }) {
-  // Step 9: Each note has its own showMore state
+  
   const [showMore, setShowMore] = useState(false)
 
   return (
